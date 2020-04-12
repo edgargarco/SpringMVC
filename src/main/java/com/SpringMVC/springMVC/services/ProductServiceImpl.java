@@ -4,15 +4,14 @@ import com.SpringMVC.springMVC.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
 
     private Map<Integer, Product> productsMap;
+
 
     public ProductServiceImpl() {
         loadProducts();
@@ -23,7 +22,36 @@ public class ProductServiceImpl implements ProductService {
         return new ArrayList<>(productsMap.values());
     }
 
+    @Override
+    public Product getProductById(Integer id) {
+        return productsMap.get(id);
+    }
 
+    @Override
+    public void deleteProduct(Integer id) {
+        productsMap.remove(id);
+    }
+
+    @Override
+    public Product saveOrUpdateProduct(Product product) {
+        if (product != null) {
+            if (product.getId() == null) {
+                product.setId(getNextKey());
+            }
+            productsMap.put(product.getId(), product);
+            return product;
+        } else {
+            throw new RuntimeException("Product Can't be nill");
+        }
+    }
+
+    private Integer getNextKey() {
+        if (!productsMap.isEmpty()) {
+            return Collections.max(productsMap.keySet()) + 1;
+        } else {
+            return 1;
+        }
+    }
 
     private void loadProducts() {
         productsMap = new HashMap<>();

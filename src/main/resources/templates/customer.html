@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap 101 Template</title>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <link href="../static/css/spring-core.css" th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Show Customer</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Customer Id:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.id}">Customer Id</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">First Name:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.firstName}">Description</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">First Name:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.lastName}">Description</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Email:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.email}">Email</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">Address One:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.addressOne}">Image</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">Address Two:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.addressTwo}">Image</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">City :</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.city}">Image</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">State:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.state}">Image</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 sm-2 control-label">Zip Code:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${customer.zipCode}">Image</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
