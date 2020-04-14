@@ -1,57 +1,17 @@
 package com.SpringMVC.springMVC.services;
 
 import com.SpringMVC.springMVC.models.Customer;
+import com.SpringMVC.springMVC.models.DomainObject;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl extends AbstractMapService implements CustomerService{
 
-    private Map<Integer,Customer> customerMap;
-
-    public CustomerServiceImpl(){
-        loadCustomer();
-    }
 
     @Override
-    public List<Customer> listAllCustomer() {
-        return new ArrayList<>(customerMap.values());
-    }
-
-    @Override
-    public Customer getCustomerById(Integer id) {
-        return customerMap.get(id);
-    }
-
-    @Override
-    public Customer saveOrUpdateCustomer(Customer customer) {
-        if (customer != null){
-            if (customer.getId() == null){
-                customer.setId(getNextKey());
-            }
-            customerMap.put(customer.getId(),customer);
-            return customer;
-        }else {
-            throw new RuntimeException("Product Can't be nill");
-        }
-
-    }
-    private Integer getNextKey() {
-        if (!customerMap.isEmpty()) {
-            return Collections.max(customerMap.keySet()) + 1;
-        } else {
-            return 1;
-        }
-    }
-
-    @Override
-    public void deleteCostumer(Integer id) {
-        customerMap.remove(id);
-
-    }
-    private void loadCustomer() {
-        customerMap = new HashMap<>();
-
+    protected void loadDomainObjects() {
+        integerDomainObjectMap = new HashMap<>();
         Customer customer = new Customer();
         customer.setId(1);
         customer.setFirstName("Edgar");
@@ -63,5 +23,27 @@ public class CustomerServiceImpl implements CustomerService{
         customer.setCity("Miami");
         customer.setState("Fl");
         customer.setZipCode("33195");
-        customerMap.put(customer.getId(), customer);}
+        integerDomainObjectMap.put(1,customer);
+
+    }
+
+    @Override
+    public List<DomainObject> listAll() {
+        return super.listAll();
+    }
+
+    @Override
+    public Customer getById(Integer id) {
+        return (Customer) super.getById(id);
+    }
+
+    @Override
+    public Customer saveOrUpdate(Customer domainObject) {
+        return (Customer) super.saveOrUpdate(domainObject);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        super.delete(id);
+    }
 }

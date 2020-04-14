@@ -5,9 +5,6 @@ import com.SpringMVC.springMVC.models.Product;
 
 import java.util.List;
 
-public interface CustomerService {
-    List<Customer> listAllCustomer();
-    Customer getCustomerById(Integer id);
-    Customer saveOrUpdateCustomer(Customer customer);
-    void deleteCostumer(Integer id);
+public interface CustomerService extends CRUDService<Customer> {
+
 }

@@ -1,5 +1,4 @@
 package com.SpringMVC.springMVC.controllers;
-
 import com.SpringMVC.springMVC.models.Customer;
 import com.SpringMVC.springMVC.services.CustomerService;
 import org.junit.Before;
@@ -9,10 +8,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.Mockito.*;
@@ -37,7 +34,7 @@ public class CustomerControllerTest {
         customers.add(new Customer());
         customers.add(new Customer());
 
-        when(customerService.listAllCustomer()).thenReturn((List) customers);
+        when(customerService.listAll()).thenReturn((List) customers);
 
         mockMvc.perform(get("/customers"))
                 .andExpect(status().isOk())
@@ -47,7 +44,7 @@ public class CustomerControllerTest {
     @Test
     public void getCustomerByIdTest() throws Exception{
         Integer id = 1;
-        when(customerService.getCustomerById(id)).thenReturn(new Customer());
+        when(customerService.getById(id)).thenReturn(new Customer());
         mockMvc.perform(get("/customer/1")).andExpect(status().isOk())
                 .andExpect(view().name("customer"))
                 .andExpect(model().attribute("customer",instanceOf(Customer.class)));
@@ -57,7 +54,7 @@ public class CustomerControllerTest {
         Integer id = 1;
         mockMvc.perform(get("/customer/delete/1")).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/customers"));
-        verify(customerService,times(1)).deleteCostumer(id);
+        verify(customerService,times(1)).delete(id);
     }
     @Test
     public void newCustomerTest() throws Exception{

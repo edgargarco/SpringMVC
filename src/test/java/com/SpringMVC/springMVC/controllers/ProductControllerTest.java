@@ -38,7 +38,7 @@ public class ProductControllerTest {
         List<Product> products = new ArrayList<>();
         products.add(new Product());
         products.add(new Product());
-        when(productService.listAllProduct()).thenReturn((List) products);
+        when(productService.listAll()).thenReturn((List) products);
         mockMvc.perform(get("/products")).andExpect(status().isOk()).andExpect(view()
                 .name("products/l")).andExpect(model().attribute("products", hasSize(2)));
     }
@@ -48,7 +48,7 @@ public class ProductControllerTest {
         Integer id = 1;
 
         //Tell Mockito stub to return new product for ID 1
-        when(productService.getProductById(id)).thenReturn(new Product());
+        when(productService.getById(id)).thenReturn(new Product());
 
         mockMvc.perform(get("/product/1"))
                 .andExpect(status().isOk())
@@ -60,7 +60,7 @@ public class ProductControllerTest {
     public void testEdit() throws Exception {
         Integer id = 1;
         //Tell Mockito stub to return new product for ID 1
-        when(productService.getProductById(id)).thenReturn(new Product());
+        when(productService.getById(id)).thenReturn(new Product());
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productform"))
@@ -86,7 +86,7 @@ public class ProductControllerTest {
         product.setDescription(description);
         product.setPrice(price);
         product.setImageUrl(imageUrl);
-        when(productService.saveOrUpdateProduct(Matchers.<Product>any())).thenReturn(product);
+        when(productService.saveOrUpdate(Matchers.<Product>any())).thenReturn(product);
         mockMvc.perform(post("/product").param("id", String.valueOf(id))
         .param("description",description).param("price", String.valueOf(price)).param("imageUrl",imageUrl))
                 .andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/product/1"))
@@ -97,7 +97,7 @@ public class ProductControllerTest {
                 .andExpect(model().attribute("product",hasProperty("imageUrl",is(imageUrl))));
 
         ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
-        verify(productService).saveOrUpdateProduct(productArgumentCaptor.capture());
+        verify(productService).saveOrUpdate(productArgumentCaptor.capture());
         assertEquals(id,productArgumentCaptor.getValue().getId());
         assertEquals(description,productArgumentCaptor.getValue().getDescription());
         assertEquals(imageUrl,productArgumentCaptor.getValue().getImageUrl());
@@ -110,7 +110,7 @@ public class ProductControllerTest {
         Integer id = 1;
         mockMvc.perform(get("/product/delete/1")).andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/products"));
-        verify(productService,times(1)).deleteProduct(id);
+        verify(productService,times(1)).delete(id);
     }
 
 

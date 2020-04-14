@@ -16,7 +16,7 @@ public class ProductController {
 
     @RequestMapping("/products")
     public String listProduct(Model model){
-        model.addAttribute("products",productService.listAllProduct());
+        model.addAttribute("products",productService.listAll());
         return "products";
     }
     @Autowired
@@ -26,7 +26,7 @@ public class ProductController {
 
     @RequestMapping("/product/{id}")
     public String getProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("product",productService.getProductById(id));
+        model.addAttribute("product",productService.getById(id));
         return "product";
 
     }
@@ -37,19 +37,19 @@ public class ProductController {
     }
     @RequestMapping(value = "/product",method = RequestMethod.POST)
     public String saveOrUpdateProduct(Product product){
-        Product saveOrUpdateProductuct = productService.saveOrUpdateProduct(product);
+        Product saveOrUpdateProductuct = productService.saveOrUpdate(product);
         return "redirect:/product/"+saveOrUpdateProductuct.getId();
 
     }
 
     @RequestMapping("/product/edit/{id}")
     public String editProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("product",productService.getProductById(id));
+        model.addAttribute("product",productService.getById(id));
         return "productform";
     }
     @RequestMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable Integer id){
-        productService.deleteProduct(id);
+        productService.delete(id);
         return "redirect:/products";
     }
 }
